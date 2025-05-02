@@ -1,17 +1,15 @@
 @echo off
 cls
 
-tools\hcdisk2 format scrshow.dsk -t 2 -y : exit
+tools\sjasmplus.exe scrshow.asm --raw=scrshow.bin
+tools\hcdisk2 format scrshow.dsk -t 2 -y : open scrshow.dsk : basimp scrshow.bas run 0 scrshow.bin : exit
 
 for %%s in (scr\*.scr) do (
-tools\hcdisk2 screen order column %%s %%~ns.col : exit
-tools\zx0 %%~ns.col %%~ns.exo
-tools\hcdisk2 open scrshow.dsk : put %%~ns.exo -n %%~ns -t b -s 32768 : exit
+tools\hcdisk2 screen order column %%s %%~ns.col : exit > nul
+tools\zx0 %%~ns.col %%~ns.exo > nul
+tools\hcdisk2 open scrshow.dsk : put %%~ns.exo -n %%~ns -t b -s 32768 : exit > nul
+echo %%s
 )
 
-if "%develop%"=="0" del *.exo && del *.col
-
-tools\sjasmplus.exe scrshow.asm --raw=scrshow.bin
-
-tools\hcdisk2 open scrshow.dsk : put scrshow.bin -n scrshow -t b -s 25000 : basimp scrshow.bas run : exit
+del *.exo && del *.col *.bin
 

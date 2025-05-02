@@ -10,5 +10,6 @@ There is a message shown on screen after each image in the format <file number>:
 The keys available during the slide show are:
 - Right/Left: go to the next/previous image
 - Up/Down: increase the pause for one screen, one second increment/decrement.
+- r: toggle random mode on/off
 
 The main logic in in a BASIC program, so it can be easily changed to load from tape or other storage options. Currently is setup for HC computers with disk interface.

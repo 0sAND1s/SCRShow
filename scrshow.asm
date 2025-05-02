@@ -3,8 +3,18 @@
 scr_packed	EQU	32768
 scr_unpacked	EQU	40000
 
-	ORG 25000
+	ORG 25000 - (MoverEnd-Mover)
 
+Mover:
+	ld	hl, MoverEnd-Mover
+	add	hl, bc
+	ld	de, ScrCode
+	ld	bc, End - ScrCode
+	ldir
+	ret
+MoverEnd:
+
+ScrCode:
 	ld	hl, scr_packed
 	ld	de, scr_unpacked
 	call	UnpackScr
@@ -84,3 +94,4 @@ ScrNextEnd:
 
 UnpackScr:	
 	include "dzx0_turbo.asm"
+End:
